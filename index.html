@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Surprise 🌸</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+overflow:hidden;
+height:100vh;
+background:linear-gradient(180deg,#081120,#132238,#1d3557);
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+}
+
+/* Stars */
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+50%{opacity:.2;}
+}
+
+/* Sakura */
+.sakura{
+position:absolute;
+top:-20px;
+font-size:20px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{
+transform:translateY(-50px) rotate(0deg);
+}
+100%{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+
+/* Cat */
+.cat{
+position:absolute;
+bottom:40px;
+left:-150px;
+font-size:90px;
+animation:walk 12s linear forwards;
+}
+
+@keyframes walk{
+0%{left:-150px;}
+60%{left:45%;}
+100%{left:45%;}
+}
+
+/* Rose */
+.rose{
+position:absolute;
+bottom:90px;
+left:50%;
+transform:translateX(-50%);
+font-size:50px;
+opacity:0;
+animation:dropRose 2s ease forwards;
+animation-delay:11s;
+}
+
+@keyframes dropRose{
+from{
+opacity:0;
+transform:translateX(-50%) translateY(-60px);
+}
+to{
+opacity:1;
+transform:translateX(-50%) translateY(0);
+}
+}
+
+/* Envelope */
+.envelope{
+position:absolute;
+width:180px;
+height:120px;
+background:#fff;
+cursor:pointer;
+bottom:120px;
+opacity:0;
+transition:.5s;
+}
+
+.envelope:before{
+content:"";
+position:absolute;
+border-left:90px solid transparent;
+border-right:90px solid transparent;
+border-top:60px solid #ffd6e0;
+top:0;
+left:0;
+}
+
+.show-envelope{
+opacity:1;
+}
+
+/* Letter */
+.letter{
+position:absolute;
+width:80%;
+max-width:700px;
+height:70%;
+background:rgba(255,255,255,.95);
+color:#222;
+padding:30px;
+border-radius:20px;
+display:none;
+overflow:auto;
+box-shadow:0 0 30px rgba(255,255,255,.3);
+}
+
+.letter h1{
+text-align:center;
+margin-bottom:20px;
+color:#ff4f81;
+}
+
+.typewriter{
+white-space:pre-wrap;
+line-height:1.8;
+font-size:18px;
+}
+
+.final{
+margin-top:30px;
+text-align:center;
+font-size:28px;
+color:#ff4f81;
+font-weight:bold;
+}
+
+/* Hearts */
+.heart{
+position:absolute;
+font-size:20px;
+animation:floatUp 5s linear infinite;
+}
+
+@keyframes floatUp{
+0%{
+transform:translateY(0);
+opacity:1;
+}
+100%{
+transform:translateY(-800px);
+opacity:0;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="cat">🐱🌹</div>
+<div class="rose">🌹</div>
+
+<div class="envelope" id="envelope"></div>
+
+<div class="letter" id="letter">
+<h1>For Someone Special ❤️</h1>
+
+<div class="typewriter" id="text"></div>
+
+<div class="final">
+✨ You made ordinary days feel brighter ✨
+</div>
+</div>
+
+<script>
+
+// Stars
+for(let i=0;i<120;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
+s.style.animationDelay=Math.random()*3+"s";
+document.body.appendChild(s);
+}
+
+// Sakura
+for(let i=0;i<30;i++){
+let f=document.createElement("div");
+f.className="sakura";
+f.innerHTML=["🌸","🌷","🌺"][Math.floor(Math.random()*3)];
+f.style.left=Math.random()*100+"vw";
+f.style.animationDuration=(8+Math.random()*8)+"s";
+f.style.animationDelay=Math.random()*10+"s";
+document.body.appendChild(f);
+}
+
+// Show envelope after cat arrives
+setTimeout(()=>{
+document.getElementById("envelope").classList.add("show-envelope");
+},12000);
+
+const msg=`Hey JENII,
+
+I was trying to think of a good reason to make this page.
+
+Then I realized I didn't really need one.
+
+I just thought it would be nice to give you something that might make you smile.
+
+We don't talk all the time,
+but I always enjoy it when we do.
+
+So here's a tiny surprise from me to you.
+
+I hope your day is as lovely as your smile.
+
+And if this made you smile even a little,
+
+mission accomplished. ❤️🌹`;
+
+document.getElementById("envelope").onclick=function(){
+
+document.getElementById("letter").style.display="block";
+
+let i=0;
+
+function type(){
+if(i<msg.length){
+document.getElementById("text").innerHTML += msg.charAt(i);
+i++;
+setTimeout(type,35);
+}
+}
+
+type();
+
+// Hearts
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.bottom="0";
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),5000);
+
+},300);
+
+}
+</script>
